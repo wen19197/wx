@@ -4,55 +4,67 @@ import json
 from collections import Counter
 from github import Github, InputFileContent
 
-# —— GitHub Gist 配置 —— #
-GITHUB_TOKEN = st.secrets["github"]["token"]
-GIST_ID      = st.secrets["github"]["gist_id"]  # 初次留空，创建后手动回填
-GIST_FILE    = "stock_data.json"
+# —— Streamlit & GitHub Gist 配置 —— #
+GITHUB_TOKEN_KEY = "github.token"
+GITHUB_GIST_KEY  = "github.gist_id"
+GIST_FILE        = "stock_data.json"
 
-# 登录 GitHub
-gh = Github(GITHUB_TOKEN)
+def get_github_client():
+    token = st.secrets["github"]["token"]
+    return Github(token)
 
 def load_from_gist():
-    """从 Gist 读取所有列表数据"""
-    if not GIST_ID:
+    """动态读取最新的 Gist ID 并加载数据"""
+    gist_id = st.secrets["github"]["gist_id"]
+    if not gist_id:
         return {}
+    gh = get_github_client()
     try:
-        gist = gh.get_gist(GIST_ID)
+        gist = gh.get_gist(gist_id)
         content = gist.files[GIST_FILE].content
         return {name: Counter(cnt) for name, cnt in json.loads(content).items()}
     except Exception:
         return {}
 
 def save_to_gist(all_lists):
-    """将所有列表数据写入（或创建）Gist"""
-    global GIST_ID
-    data = json.dumps({name: dict(cnt) for name, cnt in all_lists.items()}, 
+    """
+    动态读取最新 Gist ID；
+    如果存在则更新，否则创建新私有 Gist 并提示用户回填；
+    """
+    gist_id = st.secrets["github"]["gist_id"]
+    gh = get_github_client()
+    data = json.dumps({n: dict(c) for n, c in all_lists.items()},
                       ensure_ascii=False, indent=2)
-    if GIST_ID:
-        # 更新已有 Gist
-        gist = gh.get_gist(GIST_ID)
-        gist.edit(files={GIST_FILE: InputFileContent(data)})
-    else:
-        # 创建新私有 Gist
-        user = gh.get_user()
-        gist = user.create_gist(
-            public=False,
-            files={GIST_FILE: InputFileContent(data)},
-            description="Streamlit 库存持久化 Gist"
-        )
-        GIST_ID = gist.id
-        st.success(
-            f"🎉 已创建私有 Gist：{GIST_ID}\n"
-            "请把它填入 `.streamlit/secrets.toml` 的 gist_id 字段，"
-            "然后重新启动应用。"
-        )
-    return GIST_ID
 
-# —— Streamlit 应用配置 —— #
+    # 如果已经填写了 Gist ID，就尝试更新
+    if gist_id:
+        try:
+            gist = gh.get_gist(gist_id)
+            gist.edit(files={GIST_FILE: InputFileContent(data)})
+            return gist_id
+        except Exception:
+            # 如果更新失败（ID 不存在/权限问题），继续走创建流程
+            pass
+
+    # 创建新的私有 Gist
+    gist = gh.get_user().create_gist(
+        public=False,
+        files={GIST_FILE: InputFileContent(data)},
+        description="Streamlit 库存持久化 Gist"
+    )
+    new_id = gist.id
+    st.success(
+        f"🎉 已创建新私有 Gist：{new_id}\n"
+        "请把它填入 `.streamlit/secrets.toml`（或 Cloud Secrets）的 "
+        f"`{GITHUB_GIST_KEY}` 字段，然后重新启动应用。"
+    )
+    return new_id
+
+# —— Streamlit 应用主体 —— #
 st.set_page_config(page_title="Gist 持久化多列表库存", layout="centered")
 st.title("📦 Gist 持久化多列表库存 AI 计算器")
 
-# —— 1. 初始化 state（从 Gist 加载） —— #
+# — 1. 初始化 state — #
 if 'all_lists' not in st.session_state:
     st.session_state.all_lists = load_from_gist()
 if 'current_list' not in st.session_state:
@@ -68,7 +80,7 @@ if 'select_choice' not in st.session_state:
 if 'search_code' not in st.session_state:
     st.session_state.search_code = ""
 
-# —— 2. 列表管理 —— #
+# — 2. 列表管理 — #
 st.subheader("1️⃣ 选择、创建或删除列表")
 def on_select_change():
     st.session_state.current_list = st.session_state.select_choice
@@ -90,7 +102,8 @@ def create_new_list():
     st.session_state.all_lists[name] = Counter()
     st.session_state.current_list = name
     st.session_state.select_choice = name
-    save_to_gist(st.session_state.all_lists)
+    # 保存到 Gist（此时若无 Gist ID，将触发创建）
+    new_id = save_to_gist(st.session_state.all_lists)
 
 def delete_current_list():
     name = st.session_state.current_list
@@ -112,7 +125,6 @@ else:
     if st.session_state.select_choice in st.session_state.all_lists:
         st.button("🗑️ 删除当前列表", on_click=delete_current_list)
 
-# 校验并停止
 current = st.session_state.current_list
 if current not in st.session_state.all_lists:
     st.info("请先新建或选择一个列表")
@@ -122,7 +134,7 @@ counter = st.session_state.all_lists[current]
 st.markdown(f"**当前列表：{current}**   共 {len(counter)} 条记录")
 st.markdown("---")
 
-# —— 3. 核心操作 —— #
+# — 3. 核心操作 — #
 def record_history():
     st.session_state.history.append({
         k: cnt.copy() for k, cnt in st.session_state.all_lists.items()
@@ -166,7 +178,7 @@ with c3:
 
 st.markdown("---")
 
-# —— 4. 查询与展示 —— #
+# — 4. 查询与展示 — #
 st.text_input("🔍 查询 code", key="search_code")
 if st.session_state.search_code:
     code = st.session_state.search_code.strip()
