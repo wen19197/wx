@@ -1,0 +1,630 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>李氏易经数字能量</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      min-height: 100vh;
+      background: linear-gradient(135deg, #0a0a1a 0%, #1a0a2e 40%, #0d1b3e 70%, #0a0a1a 100%);
+      font-family: 'Segoe UI', 'PingFang SC', 'Microsoft YaHei', sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      overflow-x: hidden;
+      position: relative;
+    }
+
+    /* Crystal background particles */
+    .crystals-bg {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      pointer-events: none;
+      z-index: 0;
+      overflow: hidden;
+    }
+
+    .crystal-shard {
+      position: absolute;
+      opacity: 0.12;
+      animation: float linear infinite;
+    }
+
+    .crystal-shard svg { filter: drop-shadow(0 0 6px #a78bfa); }
+
+    @keyframes float {
+      0%   { transform: translateY(110vh) rotate(0deg); opacity: 0; }
+      10%  { opacity: 0.12; }
+      90%  { opacity: 0.12; }
+      100% { transform: translateY(-10vh) rotate(360deg); opacity: 0; }
+    }
+
+    /* Main card */
+    .card {
+      position: relative;
+      z-index: 1;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(167,139,250,0.3);
+      border-radius: 24px;
+      padding: 40px 36px 44px;
+      max-width: 480px;
+      width: 100%;
+      backdrop-filter: blur(20px);
+      box-shadow:
+        0 0 60px rgba(139,92,246,0.2),
+        0 0 120px rgba(59,130,246,0.1),
+        inset 0 1px 0 rgba(255,255,255,0.1);
+    }
+
+    /* Crystal gem decoration */
+    .gem-top {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 8px;
+    }
+
+    .gem-top svg { filter: drop-shadow(0 0 12px #c4b5fd); animation: glow 3s ease-in-out infinite; }
+
+    @keyframes glow {
+      0%,100% { filter: drop-shadow(0 0 8px #c4b5fd); }
+      50%      { filter: drop-shadow(0 0 20px #7c3aed) drop-shadow(0 0 40px #a78bfa); }
+    }
+
+    h1 {
+      text-align: center;
+      font-size: 1.5rem;
+      font-weight: 700;
+      letter-spacing: 3px;
+      background: linear-gradient(90deg, #fbbf24, #f59e0b, #d97706, #fbbf24);
+      background-size: 200%;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      animation: shimmer 3s linear infinite;
+      margin-bottom: 6px;
+    }
+
+    @keyframes shimmer { 0% { background-position:0% } 100% { background-position:200% } }
+
+    .subtitle {
+      text-align: center;
+      font-size: 0.8rem;
+      color: rgba(196,181,253,0.6);
+      letter-spacing: 2px;
+      margin-bottom: 36px;
+    }
+
+    /* Input section */
+    .input-section { display: flex; flex-direction: column; gap: 20px; margin-bottom: 28px; }
+
+    label {
+      display: block;
+      font-size: 0.78rem;
+      color: #c4b5fd;
+      letter-spacing: 2px;
+      margin-bottom: 8px;
+      text-transform: uppercase;
+    }
+
+    input[type="number"] {
+      width: 100%;
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(167,139,250,0.4);
+      border-radius: 12px;
+      padding: 14px 18px;
+      font-size: 1.4rem;
+      color: #e9d5ff;
+      outline: none;
+      transition: border-color 0.3s, box-shadow 0.3s;
+      text-align: center;
+      letter-spacing: 4px;
+      -moz-appearance: textfield;
+    }
+
+    input[type="number"]::-webkit-outer-spin-button,
+    input[type="number"]::-webkit-inner-spin-button { -webkit-appearance: none; }
+
+    input[type="number"]:focus {
+      border-color: #a78bfa;
+      box-shadow: 0 0 0 3px rgba(167,139,250,0.2), 0 0 20px rgba(167,139,250,0.1);
+    }
+
+    /* Gender toggle */
+    .gender-toggle {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+
+    .gender-btn {
+      padding: 14px;
+      border-radius: 12px;
+      border: 1px solid rgba(167,139,250,0.3);
+      background: rgba(255,255,255,0.04);
+      color: rgba(196,181,253,0.7);
+      font-size: 1rem;
+      cursor: pointer;
+      transition: all 0.25s;
+      font-family: inherit;
+      letter-spacing: 2px;
+    }
+
+    .gender-btn:hover { border-color: #a78bfa; color: #e9d5ff; }
+
+    .gender-btn.active {
+      background: linear-gradient(135deg, rgba(139,92,246,0.4), rgba(59,130,246,0.3));
+      border-color: #a78bfa;
+      color: #fff;
+      box-shadow: 0 0 16px rgba(139,92,246,0.3);
+    }
+
+    /* Calculate button */
+    .calc-btn {
+      width: 100%;
+      padding: 16px;
+      border-radius: 14px;
+      border: none;
+      background: linear-gradient(135deg, #7c3aed, #4f46e5, #2563eb);
+      color: #fff;
+      font-size: 1.05rem;
+      font-weight: 600;
+      cursor: pointer;
+      letter-spacing: 3px;
+      transition: all 0.3s;
+      position: relative;
+      overflow: hidden;
+      font-family: inherit;
+    }
+
+    .calc-btn::before {
+      content: '';
+      position: absolute;
+      top: -50%; left: -50%;
+      width: 200%; height: 200%;
+      background: linear-gradient(45deg, transparent, rgba(255,255,255,0.08), transparent);
+      transform: translateX(-100%);
+      transition: transform 0.6s;
+    }
+
+    .calc-btn:hover::before { transform: translateX(100%); }
+    .calc-btn:hover { transform: translateY(-2px); box-shadow: 0 8px 30px rgba(124,58,237,0.5); }
+    .calc-btn:active { transform: translateY(0); }
+
+    /* Result section */
+    .result-section {
+      display: none;
+      margin-top: 32px;
+      animation: fadeInUp 0.6s ease forwards;
+    }
+
+    .result-section.show { display: block; }
+
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Steps */
+    .steps {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(167,139,250,0.2);
+      border-radius: 14px;
+      padding: 20px;
+      margin-bottom: 20px;
+    }
+
+    .steps-title {
+      font-size: 0.72rem;
+      color: rgba(196,181,253,0.5);
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      margin-bottom: 12px;
+    }
+
+    .step-row {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      margin-bottom: 8px;
+      color: rgba(226,232,240,0.8);
+      font-size: 0.9rem;
+      line-height: 1.5;
+    }
+
+    .step-num {
+      width: 20px; height: 20px;
+      min-width: 20px;
+      background: rgba(139,92,246,0.4);
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 0.65rem;
+      color: #e9d5ff;
+      margin-top: 2px;
+    }
+
+    /* Main result card */
+    .result-card {
+      border-radius: 18px;
+      padding: 28px 24px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .result-number {
+      font-size: 5rem;
+      font-weight: 800;
+      line-height: 1;
+      margin-bottom: 6px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .result-palace {
+      font-size: 1.1rem;
+      letter-spacing: 3px;
+      margin-bottom: 4px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .result-element-label {
+      font-size: 0.75rem;
+      letter-spacing: 2px;
+      opacity: 0.7;
+      margin-bottom: 20px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .divider {
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.15), transparent);
+      margin: 16px 0;
+      position: relative;
+      z-index: 1;
+    }
+
+    .nurture-section { position: relative; z-index: 1; }
+
+    .nurture-label {
+      font-size: 0.72rem;
+      letter-spacing: 2px;
+      opacity: 0.6;
+      text-transform: uppercase;
+      margin-bottom: 10px;
+    }
+
+    .nurture-element {
+      font-size: 2rem;
+      font-weight: 700;
+      letter-spacing: 2px;
+      margin-bottom: 6px;
+    }
+
+    .nurture-desc {
+      font-size: 0.88rem;
+      opacity: 0.8;
+      line-height: 1.6;
+    }
+
+    /* Grid display */
+    .mini-grid {
+      margin-top: 20px;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2px;
+      background: rgba(167,139,250,0.15);
+      border-radius: 10px;
+      overflow: hidden;
+      border: 1px solid rgba(167,139,250,0.2);
+    }
+
+    .mini-cell {
+      background: rgba(255,255,255,0.03);
+      padding: 10px 4px;
+      text-align: center;
+      font-size: 1.3rem;
+      font-weight: 700;
+      color: rgba(226,232,240,0.5);
+      transition: all 0.3s;
+      position: relative;
+    }
+
+    .mini-cell .cell-sub {
+      display: block;
+      font-size: 0.6rem;
+      font-weight: 400;
+      margin-top: 2px;
+      opacity: 0.6;
+    }
+
+    .mini-cell.highlighted {
+      background: rgba(139,92,246,0.25);
+      color: #fff;
+      box-shadow: inset 0 0 20px rgba(139,92,246,0.3);
+    }
+
+    .mini-cell.highlighted .cell-sub { opacity: 1; }
+
+    .grid-label {
+      font-size: 0.7rem;
+      color: rgba(196,181,253,0.4);
+      letter-spacing: 1px;
+      text-align: center;
+      margin-top: 8px;
+    }
+
+    /* Element color themes */
+    .theme-wood  { --el-color: #22c55e; --el-bg: rgba(34,197,94,0.08);   --el-glow: rgba(34,197,94,0.3);   }
+    .theme-fire  { --el-color: #ef4444; --el-bg: rgba(239,68,68,0.08);   --el-glow: rgba(239,68,68,0.3);   }
+    .theme-earth { --el-color: #f59e0b; --el-bg: rgba(245,158,11,0.08);  --el-glow: rgba(245,158,11,0.3);  }
+    .theme-metal { --el-color: #e2e8f0; --el-bg: rgba(226,232,240,0.06); --el-glow: rgba(226,232,240,0.2); }
+    .theme-water { --el-color: #3b82f6; --el-bg: rgba(59,130,246,0.08);  --el-glow: rgba(59,130,246,0.3);  }
+
+    .result-card {
+      background: var(--el-bg, rgba(139,92,246,0.08));
+      border: 1px solid rgba(var(--el-color-raw, 139,92,246), 0.25);
+      box-shadow: 0 0 40px var(--el-glow, rgba(139,92,246,0.15));
+    }
+
+    .result-number,
+    .result-palace,
+    .nurture-element { color: var(--el-color, #e9d5ff); }
+
+    .result-element-label,
+    .nurture-label,
+    .nurture-desc { color: rgba(226,232,240,0.75); }
+
+    /* Error */
+    .error-msg {
+      text-align: center;
+      color: #f87171;
+      font-size: 0.85rem;
+      margin-top: 10px;
+      display: none;
+    }
+    .error-msg.show { display: block; }
+
+    /* Responsive */
+    @media (max-width: 400px) {
+      .card { padding: 28px 20px 32px; }
+      h1 { font-size: 1.2rem; }
+      .result-number { font-size: 4rem; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- Floating crystal shards -->
+<div class="crystals-bg" id="crystalsBg"></div>
+
+<div class="card">
+  <!-- Gem icon -->
+  <div class="gem-top">
+    <svg width="52" height="52" viewBox="0 0 52 52" fill="none">
+      <polygon points="26,4 46,18 38,46 14,46 6,18" fill="none" stroke="#a78bfa" stroke-width="1.5"/>
+      <polygon points="26,4 46,18 26,22" fill="rgba(167,139,250,0.2)"/>
+      <polygon points="26,4 6,18 26,22" fill="rgba(139,92,246,0.3)"/>
+      <polygon points="6,18 14,46 26,22" fill="rgba(99,102,241,0.25)"/>
+      <polygon points="46,18 38,46 26,22" fill="rgba(167,139,250,0.15)"/>
+      <polygon points="14,46 38,46 26,22" fill="rgba(124,58,237,0.3)"/>
+      <polygon points="26,4 46,18 26,22" stroke="#c4b5fd" stroke-width="0.5" fill="none"/>
+      <polygon points="26,4 6,18 26,22"  stroke="#c4b5fd" stroke-width="0.5" fill="none"/>
+    </svg>
+  </div>
+
+  <h1>李氏易经数字能量</h1>
+  <p class="subtitle">命 宫 五 行 计 算</p>
+
+  <div class="input-section">
+    <div>
+      <label>出 生 年 份</label>
+      <input type="number" id="yearInput" placeholder="例：1997" min="1900" max="2100" />
+    </div>
+    <div>
+      <label>性 别</label>
+      <div class="gender-toggle">
+        <button class="gender-btn" id="btnMale"   onclick="selectGender('male')">♂ 男 生</button>
+        <button class="gender-btn" id="btnFemale" onclick="selectGender('female')">♀ 女 生</button>
+      </div>
+    </div>
+  </div>
+
+  <p class="error-msg" id="errorMsg">请输入有效年份并选择性别</p>
+
+  <button class="calc-btn" onclick="calculate()">✦ 开 始 计 算 ✦</button>
+
+  <!-- Result -->
+  <div class="result-section" id="resultSection">
+
+    <div class="steps" id="stepsBox"></div>
+
+    <div class="result-card" id="resultCard">
+      <div class="result-number" id="resultNumber"></div>
+      <div class="result-palace" id="resultPalace"></div>
+      <div class="result-element-label" id="resultElementLabel"></div>
+
+      <div class="divider"></div>
+
+      <div class="nurture-section">
+        <div class="nurture-label">所 需 能 量</div>
+        <div class="nurture-element" id="nurtureElement"></div>
+        <div class="nurture-desc" id="nurtureDesc"></div>
+      </div>
+    </div>
+
+    <div class="mini-grid" id="miniGrid"></div>
+    <p class="grid-label">洛书九宫格 · 点亮为您的命宫</p>
+  </div>
+</div>
+
+<script>
+  // ── Data ──────────────────────────────────────────────────────────────────
+  const PALACE = {
+    1: { name: '坎', element: '水', elementEn: 'water',  dir: '正北' },
+    2: { name: '坤', element: '土', elementEn: 'earth',  dir: '西南' },
+    3: { name: '震', element: '木', elementEn: 'wood',   dir: '正东' },
+    4: { name: '巽', element: '木', elementEn: 'wood',   dir: '东南' },
+    5: { name: '中', element: '土', elementEn: 'earth',  dir: '中宫' },
+    6: { name: '乾', element: '金', elementEn: 'metal',  dir: '西北' },
+    7: { name: '兑', element: '金', elementEn: 'metal',  dir: '正西' },
+    8: { name: '艮', element: '土', elementEn: 'earth',  dir: '东北' },
+    9: { name: '离', element: '火', elementEn: 'fire',   dir: '正南' },
+  };
+
+  // What nurtures each element (相生: 生XX的是YY)
+  const NURTURE = {
+    water: { element: '金', desc: '金能生水，建议多佩戴金属饰品、多接触白色与金色能量，可增旺命宫水气。' },
+    wood:  { element: '水', desc: '水能生木，建议多接近水源、流动水景，多用蓝黑色调，可增旺命宫木气。' },
+    fire:  { element: '木', desc: '木能生火，建议多亲近自然、绿植，多用绿色与青色，可增旺命宫火气。' },
+    earth: { element: '火', desc: '火能生土，建议多用红色、橙色与暖光，接触火元素能量，可增旺命宫土气。' },
+    metal: { element: '土', desc: '土能生金，建议多接触大地、石头、黄色与棕色能量，可增旺命宫金气。' },
+  };
+
+  const THEME = { water:'water', wood:'wood', fire:'fire', earth:'earth', metal:'metal' };
+
+  // Lo Shu grid layout (row-major, top=South in image but we show numerically)
+  // Image: top row 4,9,2 | mid 3,5,7 | bot 8,1,6
+  const GRID_ORDER = [4,9,2, 3,5,7, 8,1,6];
+  const GRID_LABELS = {
+    4:'巽木', 9:'离火', 2:'坤土',
+    3:'震木', 5:'中土', 7:'兑金',
+    8:'艮土', 1:'坎水', 6:'乾金',
+  };
+
+  // ── State ─────────────────────────────────────────────────────────────────
+  let selectedGender = null;
+
+  function selectGender(g) {
+    selectedGender = g;
+    document.getElementById('btnMale').classList.toggle('active', g === 'male');
+    document.getElementById('btnFemale').classList.toggle('active', g === 'female');
+  }
+
+  // ── Helpers ───────────────────────────────────────────────────────────────
+  function digitSum(n) {
+    while (n >= 10) n = String(n).split('').reduce((a,b) => a + parseInt(b), 0);
+    return n;
+  }
+
+  // ── Main calculation ──────────────────────────────────────────────────────
+  function calculate() {
+    const yearVal = document.getElementById('yearInput').value.trim();
+    const err = document.getElementById('errorMsg');
+    const res = document.getElementById('resultSection');
+
+    err.classList.remove('show');
+    res.classList.remove('show');
+
+    const year = parseInt(yearVal);
+    if (!yearVal || isNaN(year) || year < 1900 || year > 2100 || !selectedGender) {
+      err.classList.add('show');
+      return;
+    }
+
+    // Step 1: sum digits of year
+    const digits = String(year).split('').map(Number);
+    const step1Sum = digits.reduce((a,b) => a+b, 0);
+
+    // Step 2: reduce to single digit
+    const baseNum = digitSum(step1Sum);
+
+    // Step 3: gender formula
+    let resultNum, step3Desc;
+    if (selectedGender === 'male') {
+      let raw = 11 - baseNum;
+      // Handle edge cases: if 0, use 9; if negative (shouldn't happen with single digit), handle
+      if (raw <= 0) raw = 9;
+      resultNum = raw;
+      step3Desc = `男生公式：11 - ${baseNum} = ${resultNum}`;
+    } else {
+      let raw = baseNum + 4;
+      // reduce if >= 10
+      const reduced = digitSum(raw);
+      step3Desc = raw >= 10
+        ? `女生公式：${baseNum} + 4 = ${raw}，再相加 → ${reduced}`
+        : `女生公式：${baseNum} + 4 = ${raw}`;
+      resultNum = reduced;
+    }
+
+    // If result is 5 — special case (often mapped to 2 for female, 8 for male in some schools)
+    // We'll keep 5 as 中宫土 here since user's chart includes 5
+    if (resultNum === 0) resultNum = 9;
+
+    const palace = PALACE[resultNum];
+    const nurture = NURTURE[palace.elementEn];
+    const theme   = palace.elementEn;
+
+    // Render steps
+    const digitsStr = digits.join(' + ');
+    document.getElementById('stepsBox').innerHTML = `
+      <div class="steps-title">计 算 步 骤</div>
+      <div class="step-row"><div class="step-num">1</div><div>拆解年份各位数字相加：${digitsStr} = ${step1Sum}</div></div>
+      <div class="step-row"><div class="step-num">2</div><div>化简为个位数：${step1Sum >= 10 ? step1Sum + ' → ' : ''}${baseNum}</div></div>
+      <div class="step-row"><div class="step-num">3</div><div>${step3Desc}</div></div>
+      <div class="step-row"><div class="step-num">4</div><div>命宫数字 <strong style="color:#e9d5ff">${resultNum}</strong>，对应 ${palace.name}卦（${palace.dir}），五行属 <strong style="color:#e9d5ff">${palace.element}</strong></div></div>
+    `;
+
+    // Render result card
+    const card = document.getElementById('resultCard');
+    card.className = 'result-card theme-' + theme;
+
+    document.getElementById('resultNumber').textContent = resultNum;
+    document.getElementById('resultPalace').textContent = `${palace.name}卦 · ${palace.dir}`;
+    document.getElementById('resultElementLabel').textContent = `五行属 ${palace.element}`;
+    document.getElementById('nurtureElement').textContent = `旺${nurture.element}`;
+    document.getElementById('nurtureDesc').textContent = nurture.desc;
+
+    // Render mini grid
+    const gridEl = document.getElementById('miniGrid');
+    gridEl.innerHTML = GRID_ORDER.map(n => `
+      <div class="mini-cell ${n === resultNum ? 'highlighted' : ''}">
+        <span>${n}</span>
+        <span class="cell-sub">${GRID_LABELS[n]}</span>
+      </div>
+    `).join('');
+
+    res.classList.add('show');
+    setTimeout(() => res.scrollIntoView({ behavior: 'smooth', block: 'nearest' }), 100);
+  }
+
+  // Enter key support
+  document.getElementById('yearInput').addEventListener('keydown', e => {
+    if (e.key === 'Enter') calculate();
+  });
+
+  // ── Crystal bg animation ──────────────────────────────────────────────────
+  function createCrystal() {
+    const bg = document.getElementById('crystalsBg');
+    const el = document.createElement('div');
+    el.className = 'crystal-shard';
+
+    const size = 18 + Math.random() * 30;
+    const left = Math.random() * 100;
+    const dur  = 12 + Math.random() * 18;
+    const delay = Math.random() * 15;
+
+    el.style.cssText = `left:${left}%;width:${size}px;height:${size}px;animation-duration:${dur}s;animation-delay:-${delay}s;`;
+
+    el.innerHTML = `<svg width="${size}" height="${size}" viewBox="0 0 24 24" fill="none">
+      <polygon points="12,2 22,9 18,22 6,22 2,9" fill="rgba(167,139,250,0.4)" stroke="rgba(196,181,253,0.6)" stroke-width="1"/>
+      <line x1="12" y1="2" x2="12" y2="12" stroke="rgba(255,255,255,0.3)" stroke-width="0.5"/>
+    </svg>`;
+
+    bg.appendChild(el);
+    setTimeout(() => el.remove(), (dur + delay) * 1000);
+  }
+
+  // Spawn crystals
+  for (let i = 0; i < 18; i++) setTimeout(createCrystal, i * 900);
+  setInterval(createCrystal, 900);
+</script>
+</body>
+</html>
