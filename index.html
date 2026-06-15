@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>李氏易经数字能量</title>
+  <title>五行水晶搭配</title>
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -20,7 +20,6 @@
       position: relative;
     }
 
-    /* Soft radial glow like Google */
     body::before {
       content: '';
       position: fixed;
@@ -49,7 +48,6 @@
       z-index: 0;
     }
 
-    /* Floating crystal bg */
     .crystals-bg {
       position: fixed;
       top: 0; left: 0;
@@ -66,7 +64,6 @@
       100% { transform: translateY(-8vh) rotate(180deg) scale(1.1); opacity: 0; }
     }
 
-    /* Main card */
     .card {
       position: relative;
       z-index: 1;
@@ -74,7 +71,7 @@
       border: 1px solid rgba(209,196,255,0.6);
       border-radius: 28px;
       padding: 44px 40px 48px;
-      max-width: 460px;
+      max-width: 480px;
       width: 100%;
       backdrop-filter: blur(32px);
       -webkit-backdrop-filter: blur(32px);
@@ -86,7 +83,6 @@
         inset 0 -1px 0 rgba(209,196,255,0.3);
     }
 
-    /* Crystal gem top */
     .gem-top {
       display: flex;
       justify-content: center;
@@ -94,8 +90,7 @@
     }
 
     .gem-top svg {
-      filter: drop-shadow(0 0 10px rgba(167,139,250,0.6))
-              drop-shadow(0 0 24px rgba(167,139,250,0.3));
+      filter: drop-shadow(0 0 10px rgba(167,139,250,0.6)) drop-shadow(0 0 24px rgba(167,139,250,0.3));
       animation: gemPulse 4s ease-in-out infinite;
     }
 
@@ -106,7 +101,7 @@
 
     h1 {
       text-align: center;
-      font-size: 1.45rem;
+      font-size: 1.55rem;
       font-weight: 700;
       letter-spacing: 3px;
       background: linear-gradient(135deg, #7c3aed 0%, #a855f7 40%, #c084fc 60%, #818cf8 100%);
@@ -125,13 +120,12 @@
 
     .subtitle {
       text-align: center;
-      font-size: 0.75rem;
+      font-size: 0.78rem;
       color: rgba(139,92,246,0.5);
       letter-spacing: 3px;
       margin-bottom: 36px;
     }
 
-    /* Inputs */
     .input-section { display: flex; flex-direction: column; gap: 22px; margin-bottom: 28px; }
 
     label {
@@ -171,7 +165,6 @@
 
     input[type="number"]::placeholder { color: rgba(167,139,250,0.4); letter-spacing: 2px; font-size: 1rem; }
 
-    /* Gender toggle */
     .gender-toggle { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
 
     .gender-btn {
@@ -189,11 +182,7 @@
       box-shadow: 0 2px 8px rgba(139,92,246,0.04);
     }
 
-    .gender-btn:hover {
-      border-color: #a78bfa;
-      color: #7c3aed;
-      background: rgba(243,232,255,0.7);
-    }
+    .gender-btn:hover { border-color: #a78bfa; color: #7c3aed; background: rgba(243,232,255,0.7); }
 
     .gender-btn.active {
       background: linear-gradient(135deg, rgba(167,139,250,0.25), rgba(129,140,248,0.2));
@@ -203,7 +192,6 @@
       font-weight: 600;
     }
 
-    /* Calc button */
     .calc-btn {
       width: 100%;
       padding: 16px;
@@ -230,11 +218,7 @@
       border-radius: 16px;
     }
 
-    .calc-btn:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 8px 32px rgba(124,58,237,0.45), 0 2px 6px rgba(124,58,237,0.2);
-    }
-
+    .calc-btn:hover { transform: translateY(-2px); box-shadow: 0 8px 32px rgba(124,58,237,0.45); }
     .calc-btn:active { transform: translateY(0); }
 
     /* Result */
@@ -250,19 +234,19 @@
       to   { opacity: 1; transform: translateY(0); }
     }
 
-    /* Result card */
+    /* Element result card */
     .result-card {
       border-radius: 20px;
-      padding: 30px 24px 26px;
+      padding: 28px 24px 24px;
       text-align: center;
       position: relative;
       overflow: hidden;
       background: rgba(255,255,255,0.85);
       border: 1.5px solid rgba(209,196,255,0.5);
       box-shadow: 0 8px 32px var(--el-glow, rgba(139,92,246,0.12));
+      margin-bottom: 16px;
     }
 
-    /* Sheen overlay inside result card */
     .result-card::before {
       content: '';
       position: absolute;
@@ -273,7 +257,7 @@
     }
 
     .result-number {
-      font-size: 5.5rem;
+      font-size: 5rem;
       font-weight: 800;
       line-height: 1;
       margin-bottom: 4px;
@@ -297,7 +281,7 @@
       font-size: 0.75rem;
       letter-spacing: 2px;
       color: rgba(109,40,217,0.45);
-      margin-bottom: 20px;
+      margin-bottom: 16px;
       position: relative;
       z-index: 1;
     }
@@ -305,33 +289,124 @@
     .divider {
       height: 1px;
       background: linear-gradient(90deg, transparent, rgba(196,181,253,0.4), transparent);
-      margin: 4px 0 18px;
+      margin: 0 0 16px;
       position: relative;
       z-index: 1;
     }
 
-    .nurture-section { position: relative; z-index: 1; }
-
-    .nurture-label {
-      font-size: 0.7rem;
-      letter-spacing: 2px;
-      color: rgba(109,40,217,0.4);
-      text-transform: uppercase;
-      margin-bottom: 10px;
+    .nurture-row {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      position: relative;
+      z-index: 1;
     }
 
-    .nurture-element {
-      font-size: 2rem;
-      font-weight: 700;
-      letter-spacing: 2px;
-      margin-bottom: 10px;
+    .nurture-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: var(--el-badge-bg, rgba(139,92,246,0.1));
+      border: 1px solid var(--el-badge-border, rgba(139,92,246,0.25));
+      border-radius: 50px;
+      padding: 6px 16px;
+      font-size: 0.85rem;
       color: var(--el-color, #7c3aed);
+      font-weight: 600;
+      letter-spacing: 1px;
     }
 
-    .nurture-desc {
-      font-size: 0.88rem;
-      color: rgba(67,20,140,0.65);
-      line-height: 1.7;
+    .nurture-arrow { font-size: 1.1rem; color: rgba(109,40,217,0.3); }
+
+    /* Crystal section */
+    .crystal-section {
+      background: rgba(255,255,255,0.75);
+      border: 1.5px solid rgba(209,196,255,0.4);
+      border-radius: 20px;
+      padding: 24px 20px;
+      margin-bottom: 16px;
+    }
+
+    .crystal-section-title {
+      text-align: center;
+      font-size: 0.72rem;
+      color: rgba(109,40,217,0.45);
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      margin-bottom: 6px;
+    }
+
+    .crystal-element-name {
+      text-align: center;
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--el-color, #7c3aed);
+      letter-spacing: 2px;
+      margin-bottom: 18px;
+    }
+
+    .crystal-element-name span {
+      font-size: 0.85rem;
+      font-weight: 500;
+      color: rgba(109,40,217,0.45);
+      margin-left: 6px;
+      letter-spacing: 1px;
+    }
+
+    .crystal-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      justify-content: center;
+    }
+
+    .crystal-tag {
+      padding: 7px 14px;
+      border-radius: 50px;
+      font-size: 0.82rem;
+      font-weight: 500;
+      letter-spacing: 0.5px;
+      border: 1px solid var(--tag-border, rgba(196,181,253,0.5));
+      background: var(--tag-bg, rgba(243,232,255,0.6));
+      color: var(--tag-color, #6d28d9);
+      transition: all 0.2s;
+      cursor: default;
+    }
+
+    .crystal-tag:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px var(--el-glow, rgba(139,92,246,0.2));
+    }
+
+    /* Colors tip strip */
+    .color-strip-section {
+      background: rgba(255,255,255,0.75);
+      border: 1.5px solid rgba(209,196,255,0.4);
+      border-radius: 20px;
+      padding: 20px 20px;
+    }
+
+    .color-strip-title {
+      text-align: center;
+      font-size: 0.72rem;
+      color: rgba(109,40,217,0.45);
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      margin-bottom: 14px;
+    }
+
+    .color-swatches {
+      display: flex;
+      gap: 6px;
+      border-radius: 10px;
+      overflow: hidden;
+    }
+
+    .color-swatch {
+      flex: 1;
+      height: 32px;
+      border-radius: 6px;
     }
 
     /* Mini grid */
@@ -350,7 +425,7 @@
       background: rgba(255,255,255,0.7);
       padding: 10px 4px;
       text-align: center;
-      font-size: 1.25rem;
+      font-size: 1.2rem;
       font-weight: 700;
       color: rgba(109,40,217,0.3);
       transition: all 0.3s;
@@ -367,7 +442,6 @@
     .mini-cell.highlighted {
       background: linear-gradient(135deg, rgba(167,139,250,0.25), rgba(129,140,248,0.2));
       color: #6d28d9;
-      box-shadow: inset 0 0 16px rgba(167,139,250,0.2);
     }
 
     .mini-cell.highlighted .cell-sub { opacity: 1; color: #7c3aed; }
@@ -378,16 +452,16 @@
       letter-spacing: 1px;
       text-align: center;
       margin-top: 8px;
+      margin-bottom: 16px;
     }
 
-    /* Element themes — light palette */
-    .theme-wood  { --el-color:#16a34a; --el-glow:rgba(22,163,74,0.15);   --el-sheen:rgba(187,247,208,0.4); }
-    .theme-fire  { --el-color:#dc2626; --el-glow:rgba(220,38,38,0.15);   --el-sheen:rgba(254,202,202,0.4); }
-    .theme-earth { --el-color:#d97706; --el-glow:rgba(217,119,6,0.15);   --el-sheen:rgba(253,230,138,0.4); }
-    .theme-metal { --el-color:#6b7280; --el-glow:rgba(107,114,128,0.12); --el-sheen:rgba(229,231,235,0.5); }
-    .theme-water { --el-color:#2563eb; --el-glow:rgba(37,99,235,0.15);   --el-sheen:rgba(191,219,254,0.4); }
+    /* Element themes */
+    .theme-wood  { --el-color:#16a34a; --el-glow:rgba(22,163,74,0.15);   --el-sheen:rgba(187,247,208,0.4); --el-badge-bg:rgba(187,247,208,0.3); --el-badge-border:rgba(22,163,74,0.3); --tag-bg:rgba(220,252,231,0.7); --tag-border:rgba(134,239,172,0.5); --tag-color:#15803d; }
+    .theme-fire  { --el-color:#dc2626; --el-glow:rgba(220,38,38,0.15);   --el-sheen:rgba(254,202,202,0.4); --el-badge-bg:rgba(254,202,202,0.3); --el-badge-border:rgba(220,38,38,0.3); --tag-bg:rgba(255,228,230,0.7); --tag-border:rgba(252,165,165,0.5); --tag-color:#b91c1c; }
+    .theme-earth { --el-color:#d97706; --el-glow:rgba(217,119,6,0.15);   --el-sheen:rgba(253,230,138,0.4); --el-badge-bg:rgba(253,230,138,0.3); --el-badge-border:rgba(217,119,6,0.3); --tag-bg:rgba(254,243,199,0.7); --tag-border:rgba(252,211,77,0.5); --tag-color:#b45309; }
+    .theme-metal { --el-color:#6b7280; --el-glow:rgba(107,114,128,0.12); --el-sheen:rgba(229,231,235,0.5); --el-badge-bg:rgba(229,231,235,0.4); --el-badge-border:rgba(156,163,175,0.4); --tag-bg:rgba(243,244,246,0.8); --tag-border:rgba(209,213,219,0.6); --tag-color:#374151; }
+    .theme-water { --el-color:#2563eb; --el-glow:rgba(37,99,235,0.15);   --el-sheen:rgba(191,219,254,0.4); --el-badge-bg:rgba(191,219,254,0.3); --el-badge-border:rgba(37,99,235,0.3); --tag-bg:rgba(219,234,254,0.7); --tag-border:rgba(147,197,253,0.5); --tag-color:#1d4ed8; }
 
-    /* Error */
     .error-msg {
       text-align: center;
       color: #dc2626;
@@ -399,41 +473,35 @@
     .error-msg.show { display: block; }
 
     @media (max-width: 400px) {
-      .card { padding: 28px 18px 32px; }
-      h1 { font-size: 1.15rem; }
-      .result-number { font-size: 4.5rem; }
+      .card { padding: 28px 16px 32px; }
+      h1 { font-size: 1.2rem; }
+      .result-number { font-size: 4rem; }
     }
   </style>
 </head>
 <body>
 
-<!-- Floating crystals -->
 <div class="crystals-bg" id="crystalsBg"></div>
 
 <div class="card">
   <div class="gem-top">
-    <!-- Multi-facet crystal gem -->
     <svg width="60" height="60" viewBox="0 0 60 60" fill="none">
-      <!-- outer gem shape -->
       <polygon points="30,3 52,16 52,44 30,57 8,44 8,16" fill="none" stroke="rgba(196,181,253,0.6)" stroke-width="1"/>
-      <!-- inner facets -->
-      <polygon points="30,3 52,16 30,22"   fill="rgba(216,180,254,0.35)"/>
-      <polygon points="30,3 8,16 30,22"    fill="rgba(196,181,253,0.25)"/>
-      <polygon points="8,16 8,44 30,22"    fill="rgba(167,139,250,0.2)"/>
-      <polygon points="52,16 52,44 30,22"  fill="rgba(221,214,254,0.3)"/>
-      <polygon points="8,44 30,57 30,22"   fill="rgba(139,92,246,0.2)"/>
-      <polygon points="52,44 30,57 30,22"  fill="rgba(167,139,250,0.15)"/>
-      <!-- sparkle lines -->
+      <polygon points="30,3 52,16 30,22"  fill="rgba(216,180,254,0.35)"/>
+      <polygon points="30,3 8,16 30,22"   fill="rgba(196,181,253,0.25)"/>
+      <polygon points="8,16 8,44 30,22"   fill="rgba(167,139,250,0.2)"/>
+      <polygon points="52,16 52,44 30,22" fill="rgba(221,214,254,0.3)"/>
+      <polygon points="8,44 30,57 30,22"  fill="rgba(139,92,246,0.2)"/>
+      <polygon points="52,44 30,57 30,22" fill="rgba(167,139,250,0.15)"/>
       <line x1="30" y1="3"  x2="30" y2="22" stroke="rgba(255,255,255,0.7)" stroke-width="0.8"/>
       <line x1="30" y1="22" x2="8"  y2="44" stroke="rgba(255,255,255,0.3)" stroke-width="0.5"/>
       <line x1="30" y1="22" x2="52" y2="44" stroke="rgba(255,255,255,0.3)" stroke-width="0.5"/>
-      <!-- top highlight -->
       <ellipse cx="33" cy="12" rx="4" ry="2.5" fill="rgba(255,255,255,0.5)" transform="rotate(-15,33,12)"/>
     </svg>
   </div>
 
-  <h1>李氏易经数字能量</h1>
-  <p class="subtitle">命 宫 五 行 测 算</p>
+  <h1>五行水晶搭配</h1>
+  <p class="subtitle">找 到 你 的 本 命 水 晶</p>
 
   <div class="input-section">
     <div>
@@ -450,27 +518,41 @@
   </div>
 
   <p class="error-msg" id="errorMsg">请输入有效年份并选择性别</p>
-
   <button class="calc-btn" onclick="calculate()">✦ 开 始 测 算 ✦</button>
 
   <div class="result-section" id="resultSection">
+
+    <!-- Palace result -->
     <div class="result-card" id="resultCard">
       <div class="result-number" id="resultNumber"></div>
       <div class="result-palace" id="resultPalace"></div>
       <div class="result-element-label" id="resultElementLabel"></div>
       <div class="divider"></div>
-      <div class="nurture-section">
-        <div class="nurture-label">所 需 能 量</div>
-        <div class="nurture-element" id="nurtureElement"></div>
-        <div class="nurture-desc" id="nurtureDesc"></div>
-      </div>
+      <div class="nurture-row" id="nurtureRow"></div>
     </div>
+
+    <!-- Lo Shu mini grid -->
     <div class="mini-grid" id="miniGrid"></div>
     <p class="grid-label">洛书九宫格 · 点亮为您的命宫</p>
+
+    <!-- Recommended crystals -->
+    <div class="crystal-section" id="crystalSection">
+      <div class="crystal-section-title">本 命 水 晶 推 荐</div>
+      <div class="crystal-element-name" id="crystalElementName"></div>
+      <div class="crystal-grid" id="crystalGrid"></div>
+    </div>
+
+    <!-- Lucky colors -->
+    <div class="color-strip-section" id="colorSection">
+      <div class="color-strip-title">五 行 喜 用 色</div>
+      <div class="color-swatches" id="colorSwatches"></div>
+    </div>
+
   </div>
 </div>
 
 <script>
+  // Palace data
   const PALACE = {
     1: { name:'坎', element:'水', elementEn:'water', dir:'正北' },
     2: { name:'坤', element:'土', elementEn:'earth', dir:'西南' },
@@ -482,12 +564,41 @@
     9: { name:'离', element:'火', elementEn:'fire',  dir:'正南' },
   };
 
-  const NURTURE = {
-    water: { element:'金', desc:'金能生水，建议多佩戴金属饰品、多接触白色与金色能量，可增旺命宫水气。' },
-    wood:  { element:'水', desc:'水能生木，建议多接近水源、流动水景，多用蓝黑色调，可增旺命宫木气。' },
-    fire:  { element:'木', desc:'木能生火，建议多亲近自然、绿植，多用绿色与青色，可增旺命宫火气。' },
-    earth: { element:'火', desc:'火能生土，建议多用红色、橙色与暖光，接触火元素能量，可增旺命宫土气。' },
-    metal: { element:'土', desc:'土能生金，建议多接触大地、石头、黄色与棕色能量，可增旺命宫金气。' },
+  // What NURTURES each element (生XX的是YY)
+  // Your element is KEY → you need VALUE element to boost you
+  const NURTURE_ELEMENT = {
+    water: 'metal',  // 金生水
+    wood:  'water',  // 水生木
+    fire:  'wood',   // 木生火
+    earth: 'fire',   // 火生土
+    metal: 'earth',  // 土生金
+  };
+
+  const ELEMENT_ZH = { water:'水', wood:'木', fire:'火', earth:'土', metal:'金' };
+  const ELEMENT_DESC = {
+    water: '金生水·旺金',
+    wood:  '水生木·旺水',
+    fire:  '木生火·旺木',
+    earth: '火生土·旺火',
+    metal: '土生金·旺土',
+  };
+
+  // Crystals by element (from 水晶对应属性 chart)
+  const CRYSTALS = {
+    fire:  ['粉水晶','石榴石','草莓晶','红胶花','太阳石','红纹石','红幽灵','紫幽灵','紫龙晶','紫水晶','紫发晶','舒俱来'],
+    wood:  ['绿龙晶','绿幽灵','萤石','孔雀石','绿碧玺','葡萄石','沙弗莱','橄榄石','绿松石','绿纹石','绿草莓','绿玉髓'],
+    earth: ['蜜蜡','钛晶','黄龙玉','黄水晶','黄蓝宝','黄碧玺','黄幽灵','黄玛瑙','黄胶花','柠檬晶','黄兔毛'],
+    water: ['黑曜石','金曜石','银曜石','黑发晶','蓝虎眼','蓝晶石','金运石','青金石','天河石','海蓝宝','海纹石'],
+    metal: ['白月光','白幽灵','白水晶','珍珠','白玉髓','欧泊','钻石','白玉','白阿塞','蓝针','白玛瑙'],
+  };
+
+  // Lucky colors per element (五行喜用色)
+  const LUCKY_COLORS = {
+    wood:  ['#d4f0a0','#a8d56e','#7bc142','#5a9e2f','#3d7a1a','#2d6010'],
+    fire:  ['#ffd6d6','#f4a0a0','#e06060','#c03030','#8b1a1a','#6b0080'],
+    earth: ['#fffacd','#f5e08a','#e6c44a','#c8970a','#9e6a00','#5c3a00'],
+    metal: ['#f5f5f5','#e8e8e8','#d4d4d4','#b8b8b8','#f5f0e8','#e8d8b0'],
+    water: ['#e0f7fa','#b2ebf2','#4dd0e1','#00acc1','#006064','#212121'],
   };
 
   const GRID_ORDER  = [4,9,2, 3,5,7, 8,1,6];
@@ -538,19 +649,28 @@
       resultNum = selectedGender === 'male' ? 2 : 8;
     }
 
-    const palace = PALACE[resultNum];
-    const nurture = NURTURE[palace.elementEn];
+    const palace     = PALACE[resultNum];
+    const myEl       = palace.elementEn;
+    const nurtureEl  = NURTURE_ELEMENT[myEl];   // element that nurtures mine
+    const crystals   = CRYSTALS[nurtureEl];
+    const colors     = LUCKY_COLORS[nurtureEl];
 
+    // Result card theme
     const card = document.getElementById('resultCard');
-    card.className = 'result-card theme-' + palace.elementEn;
+    card.className = 'result-card theme-' + myEl;
 
     document.getElementById('resultNumber').textContent = resultNum;
     document.getElementById('resultPalace').textContent = `${palace.name}卦 · ${palace.dir}`;
     document.getElementById('resultElementLabel').textContent = `五行属 ${palace.element}`;
-    document.getElementById('nurtureElement').textContent = `旺${nurture.element}`;
-    document.getElementById('nurtureDesc').textContent = nurture.desc;
 
-    // Highlight the actual display number in grid (5 is still shown in grid but highlight moved)
+    // Nurture badge
+    document.getElementById('nurtureRow').innerHTML = `
+      <span class="nurture-badge">你的五行：${palace.element}</span>
+      <span class="nurture-arrow">→</span>
+      <span class="nurture-badge">需旺：${ELEMENT_ZH[nurtureEl]}</span>
+    `;
+
+    // Mini grid
     const gridEl = document.getElementById('miniGrid');
     gridEl.innerHTML = GRID_ORDER.map(n => `
       <div class="mini-cell ${n === resultNum ? 'highlighted' : ''}">
@@ -559,15 +679,32 @@
       </div>
     `).join('');
 
+    // Crystal section — set theme to nurture element
+    const cs = document.getElementById('crystalSection');
+    cs.className = 'crystal-section theme-' + nurtureEl;
+    document.getElementById('crystalElementName').innerHTML =
+      `${ELEMENT_ZH[nurtureEl]}属水晶 <span>${ELEMENT_DESC[myEl]}</span>`;
+
+    document.getElementById('crystalGrid').innerHTML = crystals.map(c =>
+      `<span class="crystal-tag">${c}</span>`
+    ).join('');
+
+    // Color swatches
+    const colorSection = document.getElementById('colorSection');
+    colorSection.className = 'color-strip-section theme-' + nurtureEl;
+    document.getElementById('colorSwatches').innerHTML = colors.map(c =>
+      `<div class="color-swatch" style="background:${c}"></div>`
+    ).join('');
+
     res.classList.add('show');
-    setTimeout(() => res.scrollIntoView({ behavior:'smooth', block:'nearest' }), 80);
+    setTimeout(() => res.scrollIntoView({ behavior:'smooth', block:'start' }), 80);
   }
 
   document.getElementById('yearInput').addEventListener('keydown', e => {
     if (e.key === 'Enter') calculate();
   });
 
-  // ── Floating crystal shards (light style) ────────────────────────────────
+  // Floating crystals
   const CRYSTAL_COLORS = [
     ['rgba(216,180,254,0.6)','rgba(196,181,253,0.8)'],
     ['rgba(191,219,254,0.5)','rgba(147,197,253,0.7)'],
@@ -578,8 +715,7 @@
 
   function makeCrystalSVG(size, colors) {
     const [fill, stroke] = colors;
-    const h = size, w = size * 0.65;
-    const cx = w / 2;
+    const w = size * 0.65, h = size, cx = w / 2;
     return `<svg width="${w}" height="${h}" viewBox="0 0 ${w} ${h}" fill="none">
       <polygon points="${cx},2 ${w-2},${h*0.3} ${w-4},${h*0.75} ${cx},${h-2} ${4},${h*0.75} ${2},${h*0.3}"
         fill="${fill}" stroke="${stroke}" stroke-width="0.8"/>
@@ -597,7 +733,6 @@
     const dur    = 14 + Math.random() * 16;
     const delay  = Math.random() * dur;
     const colors = CRYSTAL_COLORS[Math.floor(Math.random() * CRYSTAL_COLORS.length)];
-
     el.style.cssText = `left:${left}%;bottom:-${size}px;width:${size*0.65}px;height:${size}px;
       animation:floatUp ${dur}s linear ${-delay}s infinite;
       filter:drop-shadow(0 0 4px ${colors[1]});`;
