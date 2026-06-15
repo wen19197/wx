@@ -189,29 +189,28 @@
     }
 
     .crystal-orb {
-      width: 52px; height: 52px;
+      width: 56px; height: 56px;
       border-radius: 50%;
       position: relative;
-      overflow: hidden;
-      box-shadow: 0 3px 10px rgba(0,0,0,0.15), inset 0 -2px 6px rgba(0,0,0,0.1);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.18), inset 0 -3px 8px rgba(0,0,0,0.12);
       transition: transform 0.2s, box-shadow 0.2s;
       flex-shrink: 0;
     }
 
     .crystal-item:hover .crystal-orb {
-      transform: translateY(-3px) scale(1.08);
-      box-shadow: 0 8px 20px rgba(0,0,0,0.2), inset 0 -2px 6px rgba(0,0,0,0.1);
+      transform: translateY(-4px) scale(1.1);
+      box-shadow: 0 10px 24px rgba(0,0,0,0.22), inset 0 -3px 8px rgba(0,0,0,0.12);
     }
 
-    /* Orb highlight */
+    /* Orb highlight spot */
     .crystal-orb::after {
       content: '';
       position: absolute;
-      top: 10%; left: 18%;
-      width: 35%; height: 28%;
-      background: radial-gradient(ellipse, rgba(255,255,255,0.75) 0%, rgba(255,255,255,0) 100%);
+      top: 12%; left: 20%;
+      width: 32%; height: 25%;
+      background: radial-gradient(ellipse, rgba(255,255,255,0.8) 0%, rgba(255,255,255,0) 100%);
       border-radius: 50%;
-      transform: rotate(-30deg);
+      transform: rotate(-25deg);
     }
 
     .crystal-name {
@@ -322,76 +321,80 @@
 </div>
 
 <script>
-  // ── SVG defs for crystal gradients ──────────────────────────────────────
-  const SVG_DEFS = `<svg width="0" height="0" style="position:absolute">
-    <defs>
-      <!-- FIRE crystals -->
-      <radialGradient id="g-粉水晶" cx="40%" cy="35%" r="60%"><stop offset="0%" stop-color="#fce4ec"/><stop offset="50%" stop-color="#f48fb1"/><stop offset="100%" stop-color="#c2185b"/></radialGradient>
-      <radialGradient id="g-石榴石" cx="40%" cy="35%" r="60%"><stop offset="0%" stop-color="#ef9a9a"/><stop offset="50%" stop-color="#b71c1c"/><stop offset="100%" stop-color="#4a0000"/></radialGradient>
-      <radialGradient id="g-草莓晶" cx="40%" cy="35%" r="60%"><stop offset="0%" stop-color="#ffcdd2"/><stop offset="50%" stop-color="#e57373"/><stop offset="100%" stop-color="#c62828"/></radialGradient>
-      <radialGradient id="g-红胶花" cx="40%" cy="35%" r="60%"><stop offset="0%" stop-color="#f8bbd0"/><stop offset="50%" stop-color="#e91e63"/><stop offset="100%" stop-color="#880e4f"/></radialGradient>
-      <radialGradient id="g-太阳石" cx="40%" cy="35%" r="60%"><stop offset="0%" stop-color="#fff8e1"/><stop offset="50%" stop-color="#ffb300"/><stop offset="100%" stop-color="#e65100"/></radialGradient>
-      <radialGradient id="g-红纹石" cx="40%" cy="35%" r="60%"><stop offset="0%" stop-color="#fce4ec"/><stop offset="50%" stop-color="#ef5350"/><stop offset="100%" stop-color="#b71c1c"/></radialGradient>
-      <radialGradient id="g-红幽灵" cx="40%" cy="35%" r="60%"><stop offset="0%" stop-color="#ef9a9a"/><stop offset="50%" stop-color="#d32f2f"/><stop offset="100%" stop-color="#7f0000"/></radialGradient>
-      <radialGradient id="g-紫幽灵" cx="40%" cy="35%" r="60%"><stop offset="0%" stop-color="#f3e5f5"/><stop offset="50%" stop-color="#ab47bc"/><stop offset="100%" stop-color="#4a148c"/></radialGradient>
-      <radialGradient id="g-紫龙晶" cx="40%" cy="35%" r="60%"><stop offset="0%" stop-color="#e1bee7"/><stop offset="50%" stop-color="#7b1fa2"/><stop offset="100%" stop-color="#38006b"/></radialGradient>
-      <radialGradient id="g-紫水晶" cx="40%" cy="35%" r="60%"><stop offset="0%" stop-color="#ede7f6"/><stop offset="50%" stop-color="#9c27b0"/><stop offset="100%" stop-color="#4a148c"/></radialGradient>
-      <radialGradient id="g-紫发晶" cx="40%" cy="35%" r="60%"><stop offset="0%" stop-color="#d1c4e9"/><stop offset="50%" stop-color="#673ab7"/><stop offset="100%" stop-color="#311b92"/></radialGradient>
-      <radialGradient id="g-舒俱来" cx="40%" cy="35%" r="60%"><stop offset="0%" stop-color="#e8d5e8"/><stop offset="50%" stop-color="#8e24aa"/><stop offset="100%" stop-color="#4a0072"/></radialGradient>
-      <!-- WOOD crystals -->
-      <radialGradient id="g-绿幽灵" cx="40%" cy="35%" r="60%"><stop offset="0%" stop-color="#e8f5e9"/><stop offset="50%" stop-color="#43a047"/><stop offset="100%" stop-color="#1b5e20"/></radialGradient>
-      <radialGradient id="g-萤石" cx="40%" cy="35%" r="60%"><stop offset="0%" stop-color="#e0f7fa"/><stop offset="50%" stop-color="#80cbc4"/><stop offset="100%" stop-color="#004d40"/></radialGradient>
-      <radialGradient id="g-孔雀石" cx="40%" cy="35%" r="60%"><stop offset="0%" stop-color="#c8e6c9"/><stop offset="50%" stop-color="#2e7d32"/><stop offset="100%" stop-color="#1b5e20"/></radialGradient>
-      <radialGradient id="g-绿碧玺" cx="40%" cy="35%" r="60%"><stop offset="0%" stop-color="#dcedc8"/><stop offset="50%" stop-color="#7cb342"/><stop offset="100%" stop-color="#33691e"/></radialGradient>
-      <radialGradient id="g-葡萄石" cx="40%" cy="35%" r="60%"><stop offset="0%" stop-color="#f1f8e9"/><stop offset="50%" stop-color="#aed581"/><stop offset="100%" stop-color="#558b2f"/></radialGradient>
-      <radialGradient id="g-绿龙晶" cx="40%" cy="35%" r="60%"><stop offset="0%" stop-color="#e8f5e9"/><stop offset="50%" stop-color="#388e3c"/><stop offset="100%" stop-color="#1b5e20"/></radialGradient>
-      <radialGradient id="g-沙弗莱" cx="40%" cy="35%" r="60%"><stop offset="0%" stop-color="#e8fce8"/><stop offset="50%" stop-color="#66bb6a"/><stop offset="100%" stop-color="#2e7d32"/></radialGradient>
-      <radialGradient id="g-橄榄石" cx="40%" cy="35%" r="60%"><stop offset="0%" stop-color="#f9fbe7"/><stop offset="50%" stop-color="#cddc39"/><stop offset="100%" stop-color="#827717"/></radialGradient>
-      <radialGradient id="g-绿松石" cx="40%" cy="35%" r="60%"><stop offset="0%" stop-color="#e0f7fa"/><stop offset="50%" stop-color="#00bcd4"/><stop offset="100%" stop-color="#006064"/></radialGradient>
-      <radialGradient id="g-绿纹石" cx="40%" cy="35%" r="60%"><stop offset="0%" stop-color="#e8f5e9"/><stop offset="50%" stop-color="#81c784"/><stop offset="100%" stop-color="#388e3c"/></radialGradient>
-      <radialGradient id="g-绿草莓" cx="40%" cy="35%" r="60%"><stop offset="0%" stop-color="#e8f5e9"/><stop offset="50%" stop-color="#4caf50"/><stop offset="100%" stop-color="#1b5e20"/></radialGradient>
-      <radialGradient id="g-绿玉髓" cx="40%" cy="35%" r="60%"><stop offset="0%" stop-color="#d0f0d0"/><stop offset="50%" stop-color="#66bb6a"/><stop offset="100%" stop-color="#2e7d32"/></radialGradient>
-      <!-- EARTH crystals -->
-      <radialGradient id="g-蜜蜡" cx="40%" cy="35%" r="60%"><stop offset="0%" stop-color="#fff9c4"/><stop offset="50%" stop-color="#ffca28"/><stop offset="100%" stop-color="#e65100"/></radialGradient>
-      <radialGradient id="g-钛晶" cx="40%" cy="35%" r="60%"><stop offset="0%" stop-color="#fff8e1"/><stop offset="50%" stop-color="#ffd54f"/><stop offset="100%" stop-color="#bf360c"/></radialGradient>
-      <radialGradient id="g-黄水晶" cx="40%" cy="35%" r="60%"><stop offset="0%" stop-color="#fffde7"/><stop offset="50%" stop-color="#ffee58"/><stop offset="100%" stop-color="#f57f17"/></radialGradient>
-      <radialGradient id="g-虎眼石" cx="40%" cy="35%" r="60%"><stop offset="0%" stop-color="#ffe082"/><stop offset="50%" stop-color="#bf8040"/><stop offset="100%" stop-color="#5d3a1a"/></radialGradient>
-      <radialGradient id="g-黄龙玉" cx="40%" cy="35%" r="60%"><stop offset="0%" stop-color="#fff8e1"/><stop offset="50%" stop-color="#ffa000"/><stop offset="100%" stop-color="#e65100"/></radialGradient>
-      <radialGradient id="g-黄碧玺" cx="40%" cy="35%" r="60%"><stop offset="0%" stop-color="#fffde7"/><stop offset="50%" stop-color="#fdd835"/><stop offset="100%" stop-color="#f9a825"/></radialGradient>
-      <radialGradient id="g-黄蓝宝" cx="40%" cy="35%" r="60%"><stop offset="0%" stop-color="#fffde7"/><stop offset="50%" stop-color="#fbc02d"/><stop offset="100%" stop-color="#e65100"/></radialGradient>
-      <radialGradient id="g-黄幽灵" cx="40%" cy="35%" r="60%"><stop offset="0%" stop-color="#fffff0"/><stop offset="50%" stop-color="#f5f090"/><stop offset="100%" stop-color="#c8a800"/></radialGradient>
-      <radialGradient id="g-黄玛瑙" cx="40%" cy="35%" r="60%"><stop offset="0%" stop-color="#fff8e1"/><stop offset="50%" stop-color="#ffb300"/><stop offset="100%" stop-color="#bf6000"/></radialGradient>
-      <radialGradient id="g-黄胶花" cx="40%" cy="35%" r="60%"><stop offset="0%" stop-color="#fffde7"/><stop offset="50%" stop-color="#fdd835"/><stop offset="100%" stop-color="#d4a017"/></radialGradient>
-      <radialGradient id="g-柠檬晶" cx="40%" cy="35%" r="60%"><stop offset="0%" stop-color="#fffff0"/><stop offset="50%" stop-color="#f9ff54"/><stop offset="100%" stop-color="#c6b800"/></radialGradient>
-      <radialGradient id="g-黄兔毛" cx="40%" cy="35%" r="60%"><stop offset="0%" stop-color="#fff8e1"/><stop offset="50%" stop-color="#ffca28"/><stop offset="100%" stop-color="#8d6200"/></radialGradient>
-      <!-- WATER crystals -->
-      <radialGradient id="g-黑曜石" cx="40%" cy="35%" r="60%"><stop offset="0%" stop-color="#607d8b"/><stop offset="50%" stop-color="#263238"/><stop offset="100%" stop-color="#000000"/></radialGradient>
-      <radialGradient id="g-金曜石" cx="40%" cy="35%" r="60%"><stop offset="0%" stop-color="#9e8060"/><stop offset="50%" stop-color="#5d4037"/><stop offset="100%" stop-color="#1a0a00"/></radialGradient>
-      <radialGradient id="g-银曜石" cx="40%" cy="35%" r="60%"><stop offset="0%" stop-color="#cfd8dc"/><stop offset="50%" stop-color="#78909c"/><stop offset="100%" stop-color="#263238"/></radialGradient>
-      <radialGradient id="g-黑发晶" cx="40%" cy="35%" r="60%"><stop offset="0%" stop-color="#90a4ae"/><stop offset="50%" stop-color="#37474f"/><stop offset="100%" stop-color="#000000"/></radialGradient>
-      <radialGradient id="g-蓝虎眼" cx="40%" cy="35%" r="60%"><stop offset="0%" stop-color="#bbdefb"/><stop offset="50%" stop-color="#1565c0"/><stop offset="100%" stop-color="#0d47a1"/></radialGradient>
-      <radialGradient id="g-蓝晶石" cx="40%" cy="35%" r="60%"><stop offset="0%" stop-color="#e3f2fd"/><stop offset="50%" stop-color="#1976d2"/><stop offset="100%" stop-color="#0d47a1"/></radialGradient>
-      <radialGradient id="g-金运石" cx="40%" cy="35%" r="60%"><stop offset="0%" stop-color="#795548"/><stop offset="50%" stop-color="#3e2723"/><stop offset="100%" stop-color="#1a0800"/></radialGradient>
-      <radialGradient id="g-青金石" cx="40%" cy="35%" r="60%"><stop offset="0%" stop-color="#90caf9"/><stop offset="50%" stop-color="#1a237e"/><stop offset="100%" stop-color="#0d1b6e"/></radialGradient>
-      <radialGradient id="g-天河石" cx="40%" cy="35%" r="60%"><stop offset="0%" stop-color="#e0f7fa"/><stop offset="50%" stop-color="#4dd0e1"/><stop offset="100%" stop-color="#006064"/></radialGradient>
-      <radialGradient id="g-海蓝宝" cx="40%" cy="35%" r="60%"><stop offset="0%" stop-color="#e3f2fd"/><stop offset="50%" stop-color="#64b5f6"/><stop offset="100%" stop-color="#0d47a1"/></radialGradient>
-      <radialGradient id="g-海纹石" cx="40%" cy="35%" r="60%"><stop offset="0%" stop-color="#e1f5fe"/><stop offset="50%" stop-color="#4fc3f7"/><stop offset="100%" stop-color="#01579b"/></radialGradient>
-      <radialGradient id="g-黑金超" cx="40%" cy="35%" r="60%"><stop offset="0%" stop-color="#8d6e63"/><stop offset="50%" stop-color="#3e2723"/><stop offset="100%" stop-color="#000000"/></radialGradient>
-      <!-- METAL crystals -->
-      <radialGradient id="g-白幽灵" cx="40%" cy="35%" r="60%"><stop offset="0%" stop-color="#ffffff"/><stop offset="50%" stop-color="#cfd8dc"/><stop offset="100%" stop-color="#90a4ae"/></radialGradient>
-      <radialGradient id="g-白月光" cx="40%" cy="35%" r="60%"><stop offset="0%" stop-color="#ffffff"/><stop offset="50%" stop-color="#b3e5fc"/><stop offset="100%" stop-color="#7ec8e3"/></radialGradient>
-      <radialGradient id="g-白水晶" cx="40%" cy="35%" r="60%"><stop offset="0%" stop-color="#ffffff"/><stop offset="50%" stop-color="#e8eaf6"/><stop offset="100%" stop-color="#9fa8da"/></radialGradient>
-      <radialGradient id="g-白玉髓" cx="40%" cy="35%" r="60%"><stop offset="0%" stop-color="#ffffff"/><stop offset="50%" stop-color="#f5f5f5"/><stop offset="100%" stop-color="#bdbdbd"/></radialGradient>
-      <radialGradient id="g-白兔毛" cx="40%" cy="35%" r="60%"><stop offset="0%" stop-color="#ffffff"/><stop offset="50%" stop-color="#eeeeee"/><stop offset="100%" stop-color="#9e9e9e"/></radialGradient>
-      <radialGradient id="g-珍珠" cx="40%" cy="35%" r="60%"><stop offset="0%" stop-color="#ffffff"/><stop offset="50%" stop-color="#f5e6d0"/><stop offset="100%" stop-color="#c8a882"/></radialGradient>
-      <radialGradient id="g-欧泊" cx="40%" cy="35%" r="60%"><stop offset="0%" stop-color="#e8f4f8"/><stop offset="50%" stop-color="#80deea"/><stop offset="100%" stop-color="#b39ddb"/></radialGradient>
-      <radialGradient id="g-钻石" cx="40%" cy="35%" r="60%"><stop offset="0%" stop-color="#ffffff"/><stop offset="50%" stop-color="#e3f2fd"/><stop offset="100%" stop-color="#b0bec5"/></radialGradient>
-      <radialGradient id="g-白玉" cx="40%" cy="35%" r="60%"><stop offset="0%" stop-color="#ffffff"/><stop offset="50%" stop-color="#f0f4e8"/><stop offset="100%" stop-color="#a5d6a7"/></radialGradient>
-      <radialGradient id="g-白阿塞" cx="40%" cy="35%" r="60%"><stop offset="0%" stop-color="#ffffff"/><stop offset="50%" stop-color="#e1f5fe"/><stop offset="100%" stop-color="#80cbc4"/></radialGradient>
-      <radialGradient id="g-蓝针" cx="40%" cy="35%" r="60%"><stop offset="0%" stop-color="#e8f4ff"/><stop offset="50%" stop-color="#90caf9"/><stop offset="100%" stop-color="#5472d3"/></radialGradient>
-      <radialGradient id="g-白玛瑙" cx="40%" cy="35%" r="60%"><stop offset="0%" stop-color="#ffffff"/><stop offset="50%" stop-color="#f5f5f5"/><stop offset="100%" stop-color="#d0d0d0"/></radialGradient>
-    </defs>
-  </svg>`;
+  // Crystal colors as CSS radial-gradient strings [highlight, mid, dark]
+  const CRYSTAL_COLORS = {
+    // FIRE
+    '粉水晶': ['#fce4ec','#f48fb1','#c2185b'],
+    '石榴石': ['#ef9a9a','#b71c1c','#4a0000'],
+    '草莓晶': ['#ffcdd2','#e57373','#c62828'],
+    '红胶花': ['#f8bbd0','#e91e63','#880e4f'],
+    '太阳石': ['#fff8e1','#ffb300','#e65100'],
+    '红纹石': ['#fce4ec','#ef5350','#b71c1c'],
+    '红幽灵': ['#ef9a9a','#d32f2f','#7f0000'],
+    '紫幽灵': ['#f3e5f5','#ab47bc','#4a148c'],
+    '紫龙晶': ['#e1bee7','#7b1fa2','#38006b'],
+    '紫水晶': ['#ede7f6','#9c27b0','#4a148c'],
+    '紫发晶': ['#d1c4e9','#673ab7','#311b92'],
+    '舒俱来': ['#e8d5e8','#8e24aa','#4a0072'],
+    // WOOD
+    '绿幽灵': ['#e8f5e9','#43a047','#1b5e20'],
+    '萤石':   ['#e0f7fa','#80cbc4','#004d40'],
+    '孔雀石': ['#c8e6c9','#2e7d32','#1b5e20'],
+    '绿碧玺': ['#dcedc8','#7cb342','#33691e'],
+    '葡萄石': ['#f1f8e9','#aed581','#558b2f'],
+    '绿龙晶': ['#e8f5e9','#388e3c','#1b5e20'],
+    '沙弗莱': ['#e8fce8','#66bb6a','#2e7d32'],
+    '橄榄石': ['#f9fbe7','#cddc39','#827717'],
+    '绿松石': ['#e0f7fa','#00bcd4','#006064'],
+    '绿纹石': ['#e8f5e9','#81c784','#388e3c'],
+    '绿草莓': ['#e8f5e9','#4caf50','#1b5e20'],
+    '绿玉髓': ['#d0f0d0','#66bb6a','#2e7d32'],
+    // EARTH
+    '蜜蜡':   ['#fff9c4','#ffca28','#e65100'],
+    '钛晶':   ['#fff8e1','#ffd54f','#bf360c'],
+    '黄水晶': ['#fffde7','#ffee58','#f57f17'],
+    '虎眼石': ['#ffe082','#bf8040','#5d3a1a'],
+    '黄龙玉': ['#fff8e1','#ffa000','#e65100'],
+    '黄碧玺': ['#fffde7','#fdd835','#f9a825'],
+    '黄蓝宝': ['#fffde7','#fbc02d','#e65100'],
+    '黄幽灵': ['#fffff0','#f5f090','#c8a800'],
+    '黄玛瑙': ['#fff8e1','#ffb300','#bf6000'],
+    '黄胶花': ['#fffde7','#fdd835','#d4a017'],
+    '柠檬晶': ['#fffff0','#f9ff54','#c6b800'],
+    '黄兔毛': ['#fff8e1','#ffca28','#8d6200'],
+    // WATER
+    '黑曜石': ['#607d8b','#263238','#000000'],
+    '金曜石': ['#9e8060','#5d4037','#1a0a00'],
+    '银曜石': ['#cfd8dc','#78909c','#263238'],
+    '黑发晶': ['#90a4ae','#37474f','#000000'],
+    '蓝虎眼': ['#bbdefb','#1565c0','#0d47a1'],
+    '蓝晶石': ['#e3f2fd','#1976d2','#0d47a1'],
+    '金运石': ['#795548','#3e2723','#1a0800'],
+    '青金石': ['#90caf9','#1a237e','#0d1b6e'],
+    '天河石': ['#e0f7fa','#4dd0e1','#006064'],
+    '海蓝宝': ['#e3f2fd','#64b5f6','#0d47a1'],
+    '海纹石': ['#e1f5fe','#4fc3f7','#01579b'],
+    '黑金超': ['#8d6e63','#3e2723','#000000'],
+    // METAL
+    '白幽灵': ['#ffffff','#cfd8dc','#90a4ae'],
+    '白月光': ['#ffffff','#b3e5fc','#7ec8e3'],
+    '白水晶': ['#ffffff','#e8eaf6','#9fa8da'],
+    '白玉髓': ['#ffffff','#f5f5f5','#bdbdbd'],
+    '白兔毛': ['#ffffff','#eeeeee','#9e9e9e'],
+    '珍珠':   ['#ffffff','#f5e6d0','#c8a882'],
+    '欧泊':   ['#e8f4f8','#80deea','#b39ddb'],
+    '钻石':   ['#ffffff','#e3f2fd','#b0bec5'],
+    '白玉':   ['#ffffff','#f0f4e8','#a5d6a7'],
+    '白阿塞': ['#ffffff','#e1f5fe','#80cbc4'],
+    '蓝针':   ['#e8f4ff','#90caf9','#5472d3'],
+    '白玛瑙': ['#ffffff','#f5f5f5','#d0d0d0'],
+  };
+
+  function crystalOrb(name) {
+    const c = CRYSTAL_COLORS[name] || ['#e8e0ff','#a78bfa','#6d28d9'];
+    const bg = `radial-gradient(circle at 38% 32%, ${c[0]} 0%, ${c[1]} 50%, ${c[2]} 100%)`;
+    return `<div class="crystal-orb" style="background:${bg}"></div>`;
+  }
 
   // ── Data ────────────────────────────────────────────────────────────────
   const PALACE = {
@@ -509,11 +512,7 @@
 
     document.getElementById('crystalGrid').innerHTML = crystals.map(name => `
       <div class="crystal-item">
-        <div class="crystal-orb">
-          <svg width="52" height="52" viewBox="0 0 52 52">
-            <circle cx="26" cy="26" r="26" fill="url(#g-${name})"/>
-          </svg>
-        </div>
+        ${crystalOrb(name)}
         <span class="crystal-name">${name}</span>
       </div>
     `).join('');
@@ -530,9 +529,6 @@
   document.getElementById('yearInput').addEventListener('keydown', e => {
     if (e.key === 'Enter') calculate();
   });
-
-  // Inject SVG defs
-  document.body.insertAdjacentHTML('afterbegin', SVG_DEFS);
 
   // Floating crystals bg
   const FLOAT_COLORS = [
