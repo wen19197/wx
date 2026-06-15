@@ -166,60 +166,60 @@
     .nurture-badge { display: inline-flex; align-items: center; gap: 6px; background: var(--el-badge-bg, rgba(139,92,246,0.1)); border: 1px solid var(--el-badge-border, rgba(139,92,246,0.25)); border-radius: 50px; padding: 6px 16px; font-size: 0.85rem; color: var(--el-color, #7c3aed); font-weight: 600; letter-spacing: 1px; }
     .nurture-arrow { font-size: 1.1rem; color: rgba(109,40,217,0.3); }
 
-    /* Crystal section */
-    .crystal-section {
-      background: rgba(255,255,255,0.75);
-      border: 1.5px solid rgba(209,196,255,0.4);
-      border-radius: 20px; padding: 24px 20px; margin-bottom: 16px;
-    }
-    .crystal-section-title { text-align: center; font-size: 0.72rem; color: rgba(109,40,217,0.45); letter-spacing: 3px; text-transform: uppercase; margin-bottom: 6px; }
-    .crystal-element-name { text-align: center; font-size: 1.4rem; font-weight: 700; color: var(--el-color, #7c3aed); letter-spacing: 2px; margin-bottom: 20px; }
-    .crystal-element-name span { font-size: 0.8rem; font-weight: 500; color: rgba(109,40,217,0.4); margin-left: 6px; letter-spacing: 1px; }
-
-    /* Crystal grid with orbs */
-    .crystal-grid {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 14px 10px;
+    /* ── Three-tier crystal cards ── */
+    .tier-card {
+      border-radius: 20px; padding: 20px 18px;
+      margin-bottom: 12px;
+      background: rgba(255,255,255,0.8);
+      border: 1.5px solid rgba(209,196,255,0.35);
     }
 
-    .crystal-item {
-      display: flex; flex-direction: column; align-items: center; gap: 6px;
-      cursor: default;
+    .tier-header {
+      display: flex; align-items: center; gap: 10px; margin-bottom: 10px;
     }
 
-    .crystal-orb {
-      width: 56px; height: 56px;
-      border-radius: 50%;
-      position: relative;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.18), inset 0 -3px 8px rgba(0,0,0,0.12);
-      transition: transform 0.2s, box-shadow 0.2s;
-      flex-shrink: 0;
+    .tier-badge {
+      font-size: 0.7rem; font-weight: 700; letter-spacing: 1.5px;
+      padding: 4px 12px; border-radius: 50px;
+      white-space: nowrap;
+    }
+    .tier-badge.primary { background: linear-gradient(135deg,#fbbf24,#f59e0b); color:#fff; box-shadow:0 2px 8px rgba(245,158,11,0.35); }
+    .tier-badge.secondary { background: rgba(167,139,250,0.15); color:#7c3aed; border:1px solid rgba(167,139,250,0.3); }
+    .tier-badge.avoid { background: rgba(239,68,68,0.1); color:#dc2626; border:1px solid rgba(239,68,68,0.25); }
+
+    .tier-title { font-size: 0.95rem; font-weight: 700; color:#3b0764; letter-spacing: 1px; }
+    .tier-sub   { font-size: 0.72rem; color:rgba(109,40,217,0.45); letter-spacing: 1px; margin-top:2px; }
+
+    /* Element chart image */
+    .crystal-chart-img {
+      width: 100%; border-radius: 14px;
+      margin: 12px 0 10px;
+      display: block;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.08);
     }
 
-    .crystal-item:hover .crystal-orb {
-      transform: translateY(-4px) scale(1.1);
-      box-shadow: 0 10px 24px rgba(0,0,0,0.22), inset 0 -3px 8px rgba(0,0,0,0.12);
+    /* Name tags */
+    .crystal-tags {
+      display: flex; flex-wrap: wrap; gap: 6px; margin-top: 4px;
     }
+    .crystal-tag {
+      padding: 5px 12px; border-radius: 50px;
+      font-size: 0.78rem; font-weight: 500; letter-spacing: 0.3px;
+      border: 1px solid rgba(196,181,253,0.45);
+      background: rgba(243,232,255,0.6); color:#6d28d9;
+    }
+    .crystal-tag.own  { background:rgba(243,232,255,0.4); color:#7c3aed; border-color:rgba(167,139,250,0.3); }
+    .crystal-tag.avoid-tag { background:rgba(254,242,242,0.7); color:#991b1b; border-color:rgba(239,68,68,0.25); text-decoration: line-through; opacity:0.75; }
 
-    /* Orb highlight spot */
-    .crystal-orb::after {
-      content: '';
-      position: absolute;
-      top: 12%; left: 20%;
-      width: 32%; height: 25%;
-      background: radial-gradient(ellipse, rgba(255,255,255,0.8) 0%, rgba(255,255,255,0) 100%);
-      border-radius: 50%;
-      transform: rotate(-25deg);
+    /* avoid warning box */
+    .avoid-warning {
+      display: flex; align-items: flex-start; gap: 10px;
+      background: rgba(254,242,242,0.6); border-radius: 12px;
+      padding: 12px 14px; margin-top: 10px;
+      border: 1px solid rgba(239,68,68,0.2);
     }
-
-    .crystal-name {
-      font-size: 0.7rem;
-      color: rgba(67,20,140,0.65);
-      text-align: center;
-      line-height: 1.2;
-      letter-spacing: 0.3px;
-    }
+    .avoid-icon { font-size: 1.2rem; line-height: 1.4; }
+    .avoid-text { font-size: 0.82rem; color:#991b1b; line-height: 1.6; }
 
     /* Color strip */
     .color-strip-section { background: rgba(255,255,255,0.75); border: 1.5px solid rgba(209,196,255,0.4); border-radius: 20px; padding: 20px; }
@@ -307,11 +307,12 @@
     <div class="mini-grid" id="miniGrid"></div>
     <p class="grid-label">洛书九宫格 · 点亮为您的命宫</p>
 
-    <div class="crystal-section" id="crystalSection">
-      <div class="crystal-section-title">本 命 水 晶 推 荐</div>
-      <div class="crystal-element-name" id="crystalElementName"></div>
-      <div class="crystal-grid" id="crystalGrid"></div>
-    </div>
+    <!-- Tier 1: Primary -->
+    <div class="tier-card" id="tier1"></div>
+    <!-- Tier 2: Secondary -->
+    <div class="tier-card" id="tier2"></div>
+    <!-- Tier 3: Avoid -->
+    <div class="tier-card" id="tier3"></div>
 
     <div class="color-strip-section">
       <div class="color-strip-title">五 行 喜 用 色</div>
@@ -408,18 +409,34 @@
     9: { name:'离', element:'火', elementEn:'fire',  dir:'正南' },
   };
 
-  // What nurtures each element
-  const NURTURE_ELEMENT = { water:'metal', wood:'water', fire:'wood', earth:'fire', metal:'earth' };
-  const ELEMENT_ZH      = { water:'水', wood:'木', fire:'火', earth:'土', metal:'金' };
-  const ELEMENT_DESC    = { water:'金生水·旺金', wood:'水生木·旺水', fire:'木生火·旺木', earth:'火生土·旺火', metal:'土生金·旺土' };
+  const ELEMENT_ZH = { water:'水', wood:'木', fire:'火', earth:'土', metal:'金' };
 
-  // Crystals from images
+  // 相生：生我的（首选）
+  const NURTURE_EL = { water:'metal', wood:'water', fire:'wood', earth:'fire', metal:'earth' };
+  // 相克：克我的（避免）
+  const CLASH_EL   = { water:'earth', wood:'metal', fire:'water', earth:'wood', metal:'fire' };
+  // 相生描述
+  const NURTURE_DESC = { water:'金生水', wood:'水生木', fire:'木生火', earth:'火生土', metal:'土生金' };
+  // 相克描述
+  const CLASH_DESC   = { water:'土克水', wood:'金克木', fire:'水克火', earth:'木克土', metal:'火克金' };
+
+  // Crystal lists matching the uploaded images
   const CRYSTALS = {
     fire:  ['粉水晶','石榴石','草莓晶','红胶花','太阳石','红纹石','红幽灵','紫幽灵','紫龙晶','紫水晶','紫发晶','舒俱来'],
-    wood:  ['绿幽灵','萤石','孔雀石','绿碧玺','葡萄石','绿龙晶','沙弗莱','橄榄石','绿松石','绿纹石','绿草莓','绿玉髓'],
+    wood:  ['绿发晶','绿草莓','孔雀石','葡萄石','绿玉髓','绿纹石','碧玉','沙弗莱','绿碧玺','橄榄石','绿龙晶','绿幽灵'],
     earth: ['蜜蜡','钛晶','黄水晶','虎眼石','黄龙玉','黄碧玺','黄蓝宝','黄幽灵','黄玛瑙','黄胶花','柠檬晶','黄兔毛'],
     water: ['黑曜石','金曜石','银曜石','黑发晶','蓝虎眼','蓝晶石','金运石','青金石','天河石','海蓝宝','海纹石','黑金超'],
-    metal: ['白幽灵','白月光','白水晶','白玉髓','白兔毛','珍珠','欧泊','钻石','白玉','白阿塞','蓝针','白玛瑙'],
+    metal: ['白月光','白幽灵','雪花幽灵','白托','珍珠','蓝针','白玉','白玛瑙','白松石','白兔毛','白水晶','白玉髓'],
+  };
+
+  // Images hosted on main branch
+  const BASE = 'https://raw.githubusercontent.com/wen19197/wx/main/';
+  const ELEMENT_IMG = {
+    fire:  BASE + 'fire.jpg.png',
+    wood:  BASE + 'wood.jpg.png',
+    earth: BASE + 'earth.jpg.png',
+    water: BASE + 'water.jpg.png',
+    metal: BASE + 'metal.jpg.png',
   };
 
   const LUCKY_COLORS = {
@@ -432,6 +449,10 @@
 
   const GRID_ORDER  = [4,9,2, 3,5,7, 8,1,6];
   const GRID_LABELS = { 4:'巽木', 9:'离火', 2:'坤土', 3:'震木', 5:'中土', 7:'兑金', 8:'艮土', 1:'坎水', 6:'乾金' };
+
+  function tags(list, cls='') {
+    return list.map(n => `<span class="crystal-tag ${cls}">${n}</span>`).join('');
+  }
 
   let selectedGender = null;
 
@@ -460,32 +481,26 @@
       return;
     }
 
-    // Step 1: reduce year digits
     const baseNum = digitSum(String(year).split('').reduce((a,b) => a + parseInt(b), 0));
 
-    // Step 2: gender formula
     let resultNum;
     if (selectedGender === 'male') {
       let raw = 11 - baseNum;
       if (raw <= 0) raw = 9;
-      // Reduce if still double digit (e.g. baseNum=1 → raw=10 → reduce to 1)
       resultNum = digitSum(raw);
     } else {
       resultNum = digitSum(baseNum + 4);
     }
 
     if (resultNum === 0) resultNum = 9;
-
-    // Special rule: 5 → male=2, female=8
     if (resultNum === 5) resultNum = selectedGender === 'male' ? 2 : 8;
 
-    const palace    = PALACE[resultNum];
-    const myEl      = palace.elementEn;
-    const nurtureEl = NURTURE_ELEMENT[myEl];
-    const crystals  = CRYSTALS[nurtureEl];
-    const colors    = LUCKY_COLORS[nurtureEl];
+    const palace   = PALACE[resultNum];
+    const myEl     = palace.elementEn;
+    const nurEl    = NURTURE_EL[myEl];   // 首选：生我的
+    const clashEl  = CLASH_EL[myEl];     // 避免：克我的
 
-    // Result card
+    // ── Result card ──
     const card = document.getElementById('resultCard');
     card.className = 'result-card theme-' + myEl;
     document.getElementById('resultNumber').textContent = resultNum;
@@ -494,31 +509,62 @@
     document.getElementById('nurtureRow').innerHTML = `
       <span class="nurture-badge">你的五行：${palace.element}</span>
       <span class="nurture-arrow">→</span>
-      <span class="nurture-badge">需旺：${ELEMENT_ZH[nurtureEl]}</span>
+      <span class="nurture-badge">首选旺：${ELEMENT_ZH[nurEl]}</span>
     `;
 
-    // Mini grid
+    // ── Mini grid ──
     document.getElementById('miniGrid').innerHTML = GRID_ORDER.map(n => `
       <div class="mini-cell ${n === resultNum ? 'highlighted' : ''}">
         <span>${n}</span><span class="cell-sub">${GRID_LABELS[n]}</span>
       </div>
     `).join('');
 
-    // Crystal section
-    const cs = document.getElementById('crystalSection');
-    cs.className = 'crystal-section theme-' + nurtureEl;
-    document.getElementById('crystalElementName').innerHTML =
-      `${ELEMENT_ZH[nurtureEl]}属水晶 <span>${ELEMENT_DESC[myEl]}</span>`;
-
-    document.getElementById('crystalGrid').innerHTML = crystals.map(name => `
-      <div class="crystal-item">
-        ${crystalOrb(name)}
-        <span class="crystal-name">${name}</span>
+    // ── Tier 1: 首选（生我的五行水晶）──
+    document.getElementById('tier1').innerHTML = `
+      <div class="tier-header">
+        <span class="tier-badge primary">⭐ 首 选</span>
+        <div>
+          <div class="tier-title">${ELEMENT_ZH[nurEl]}属水晶</div>
+          <div class="tier-sub">${NURTURE_DESC[myEl]} · 最能助旺命宫</div>
+        </div>
       </div>
-    `).join('');
+      <img src="${ELEMENT_IMG[nurEl]}" class="crystal-chart-img" alt="${ELEMENT_ZH[nurEl]}属水晶" loading="lazy"/>
+      <div class="crystal-tags">${tags(CRYSTALS[nurEl])}</div>
+    `;
 
-    // Colors
-    document.getElementById('colorSwatches').innerHTML = colors.map(c =>
+    // ── Tier 2: 次选（自己本命五行水晶）──
+    document.getElementById('tier2').innerHTML = `
+      <div class="tier-header">
+        <span class="tier-badge secondary">○ 次 选</span>
+        <div>
+          <div class="tier-title">${ELEMENT_ZH[myEl]}属水晶</div>
+          <div class="tier-sub">同命五行 · 佩戴亦有助益</div>
+        </div>
+      </div>
+      <img src="${ELEMENT_IMG[myEl]}" class="crystal-chart-img" alt="${ELEMENT_ZH[myEl]}属水晶" loading="lazy"/>
+      <div class="crystal-tags">${tags(CRYSTALS[myEl], 'own')}</div>
+    `;
+
+    // ── Tier 3: 避免（克我的五行水晶）──
+    document.getElementById('tier3').innerHTML = `
+      <div class="tier-header">
+        <span class="tier-badge avoid">✕ 避 免</span>
+        <div>
+          <div class="tier-title">${ELEMENT_ZH[clashEl]}属水晶</div>
+          <div class="tier-sub">${CLASH_DESC[myEl]} · 不建议佩戴</div>
+        </div>
+      </div>
+      <div class="avoid-warning">
+        <span class="avoid-icon">⚠️</span>
+        <span class="avoid-text">
+          <strong>${CLASH_DESC[myEl]}</strong>，${ELEMENT_ZH[clashEl]}属水晶会消耗你的命宫能量，请避免佩戴以下水晶：
+        </span>
+      </div>
+      <div class="crystal-tags" style="margin-top:10px">${tags(CRYSTALS[clashEl], 'avoid-tag')}</div>
+    `;
+
+    // ── Colors ──
+    document.getElementById('colorSwatches').innerHTML = LUCKY_COLORS[nurEl].map(c =>
       `<div class="color-swatch" style="background:${c}"></div>`
     ).join('');
 
