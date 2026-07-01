@@ -1,2 +1,6 @@
 streamlit
 PyGithub
+anthropic
+requests
+beautifulsoup4
+lxml
